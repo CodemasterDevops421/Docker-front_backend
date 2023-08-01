@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "9000:9000"
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+
+networks:
+  default:
+    driver: overlay
+
